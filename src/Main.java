@@ -23,8 +23,6 @@ public class Main {
     public static void main(String[] args) {
 
         FileManager.loadAll();
-        
-        initializeSampleData();
 
         while (true) {
             displayMainMenu();
@@ -273,7 +271,6 @@ public class Main {
                                                   qty, product.getPrice());
                 invoice.addItem(item);
                 
-                // Create warranty for each product
                 for (int i = 0; i < qty; i++) {
                     Warranty warranty = new Warranty(IDGenerator.generateWarrantyId(),
                                                     product.getId(), customerId,
@@ -370,7 +367,7 @@ public class Main {
         
         try {
             if (warranty.isValid()) {
-                System.out.println("✓ Bảo hành hợp lệ");
+                System.out.println(" Bảo hành hợp lệ");
                 System.out.printf("Sản phẩm: %s%n", warranty.getProductId());
                 System.out.printf("Hợp lệ đến: %s%n", warranty.endDate);
             } else {
@@ -540,125 +537,5 @@ public class Main {
         return value;
     }
     
-    private static void initializeSampleData() {
-        boolean productsExist = !store.getProducts().isEmpty();
-        boolean customersExist = !store.getCustomers().isEmpty();
-
-        if (productsExist && customersExist) return;
-
-        System.out.println("Khởi tạo dữ liệu mẫu...");
-
-        if (!productsExist) {
-            
-            SmartPhone[] smartphones = {
-
-                new SmartPhone(IDGenerator.generateProductId(), "Galaxy S23 Ultra", "Samsung", 29990000, 15,
-                    "Flagship Samsung với bút S-Pen", "Android 13", 12, 256, "Snapdragon 8 Gen 2"),
-                new SmartPhone(IDGenerator.generateProductId(), "Galaxy S23+", "Samsung", 24990000, 20,
-                    "Màn hình Dynamic AMOLED 2X", "Android 13", 8, 256, "Snapdragon 8 Gen 2"),
-                new SmartPhone(IDGenerator.generateProductId(), "Galaxy A54", "Samsung", 10990000, 30,
-                    "Camera chống rung OIS", "Android 13", 8, 128, "Exynos 1380"),
-                new SmartPhone(IDGenerator.generateProductId(), "Galaxy A34", "Samsung", 8490000, 25,
-                    "Pin 5000mAh", "Android 13", 8, 128, "Dimensity 1080"),
-
-                new SmartPhone(IDGenerator.generateProductId(), "iPhone 15 Pro Max", "Apple", 34990000, 10,
-                    "Chip A17 Pro mạnh mẽ", "iOS 17", 8, 256, "A17 Pro"),
-                new SmartPhone(IDGenerator.generateProductId(), "iPhone 15 Pro", "Apple", 29990000, 12,
-                    "Khung titan cao cấp", "iOS 17", 8, 128, "A17 Pro"),
-                new SmartPhone(IDGenerator.generateProductId(), "iPhone 15", "Apple", 24990000, 15,
-                    "Dynamic Island", "iOS 17", 6, 128, "A16 Bionic"),
-                new SmartPhone(IDGenerator.generateProductId(), "iPhone 14", "Apple", 19990000, 18,
-                    "Camera kép 12MP", "iOS 17", 6, 128, "A15 Bionic"),
-                    
-                new SmartPhone(IDGenerator.generateProductId(), "Redmi Note 12 Pro", "Xiaomi", 7990000, 40,
-                    "Camera 108MP", "Android 13", 8, 256, "Dimensity 1080"),
-                new SmartPhone(IDGenerator.generateProductId(), "Redmi Note 12", "Xiaomi", 4990000, 50,
-                    "Màn hình AMOLED 120Hz", "Android 13", 8, 128, "Snapdragon 685"),
-                new SmartPhone(IDGenerator.generateProductId(), "POCO X5 Pro", "Xiaomi", 7490000, 35,
-                    "5G, Sạc nhanh 67W", "Android 13", 8, 256, "Snapdragon 778G"),
-                new SmartPhone(IDGenerator.generateProductId(), "POCO X5", "Xiaomi", 5990000, 45,
-                    "Pin 5000mAh", "Android 13", 6, 128, "Snapdragon 695"),
-
-                new SmartPhone(IDGenerator.generateProductId(), "Find N3", "OPPO", 44990000, 8,
-                    "Màn hình gập cao cấp", "Android 13", 16, 512, "Snapdragon 8 Gen 2"),
-                new SmartPhone(IDGenerator.generateProductId(), "Reno10 Pro+", "OPPO", 19990000, 15,
-                    "Camera tele 64MP", "Android 13", 12, 256, "Snapdragon 8+ Gen 1"),
-                new SmartPhone(IDGenerator.generateProductId(), "Reno10", "OPPO", 10990000, 25,
-                    "Camera chân dung 32MP", "Android 13", 8, 256, "Dimensity 7050"),
-                new SmartPhone(IDGenerator.generateProductId(), "A78", "OPPO", 6990000, 35,
-                    "Sạc nhanh SUPERVOOC", "Android 13", 8, 128, "Snapdragon 680"),
-
-                new SmartPhone(IDGenerator.generateProductId(), "X90 Pro", "Vivo", 19990000, 12,
-                    "Camera ZEISS 50MP", "Android 13", 12, 256, "Dimensity 9200"),
-                new SmartPhone(IDGenerator.generateProductId(), "V27e", "Vivo", 8990000, 28,
-                    "Màn hình AMOLED 120Hz", "Android 13", 8, 256, "Helio G99"),
-                new SmartPhone(IDGenerator.generateProductId(), "Y35", "Vivo", 6490000, 40,
-                    "RAM mở rộng 8GB", "Android 13", 8, 128, "Snapdragon 680"),
-                new SmartPhone(IDGenerator.generateProductId(), "Y22s", "Vivo", 5290000, 45,
-                    "Pin 5000mAh", "Android 12", 8, 128, "Snapdragon 680")
-            };
-
-            for (SmartPhone phone : smartphones) {
-                store.getProducts().put(phone.getId(), phone);
-            }
-
-            FeaturePhone[] featurePhones = {
-                new FeaturePhone(IDGenerator.generateProductId(), "Nokia 110 4G", "Nokia", 790000, 50,
-                    "Điện thoại phổ thông 4G", "1020mAh", true),
-                new FeaturePhone(IDGenerator.generateProductId(), "Nokia 8210 4G", "Nokia", 1490000, 40,
-                    "Thiết kế hoài cổ", "1450mAh", true),
-                new FeaturePhone(IDGenerator.generateProductId(), "Nokia 5710", "Nokia", 1890000, 30,
-                    "Tích hợp tai nghe không dây", "1450mAh", true),
-                new FeaturePhone(IDGenerator.generateProductId(), "Nokia 2660 Flip", "Nokia", 1990000, 25,
-                    "Điện thoại nắp gập", "1450mAh", false),
-                new FeaturePhone(IDGenerator.generateProductId(), "Nokia 6310", "Nokia", 1590000, 35,
-                    "Pin siêu bền", "1150mAh", true)
-            };
-
-            for (FeaturePhone phone : featurePhones) {
-                store.getProducts().put(phone.getId(), phone);
-            }
-        }
-
-        if (!customersExist) {
-            Customer[] customers = {
-                new Customer(IDGenerator.generateCustomerId(), "Nguyễn Văn An", "0912345001", "nguyenan@email.com", "123 Lê Lợi, Q1"),
-                new Customer(IDGenerator.generateCustomerId(), "Trần Thị Bình", "0912345002", "tranbinh@email.com", "45 Nguyễn Huệ, Q1"),
-                new Customer(IDGenerator.generateCustomerId(), "Lê Hoàng Cường", "0912345003", "lecuong@email.com", "67 Đồng Khởi, Q1"),
-                new Customer(IDGenerator.generateCustomerId(), "Phạm Minh Đức", "0912345004", "phamduc@email.com", "89 Pasteur, Q1"),
-                new Customer(IDGenerator.generateCustomerId(), "Hoàng Thị Em", "0912345005", "hoangem@email.com", "12 Nam Kỳ Khởi Nghĩa, Q3"),
-                new Customer(IDGenerator.generateCustomerId(), "Võ Thành Giáp", "0912345006", "vogiap@email.com", "34 Cao Thắng, Q3"),
-                new Customer(IDGenerator.generateCustomerId(), "Đặng Thu Hà", "0912345007", "dangha@email.com", "56 Võ Văn Tần, Q3"),
-                new Customer(IDGenerator.generateCustomerId(), "Bùi Quốc Hưng", "0912345008", "buihung@email.com", "78 Nguyễn Đình Chiểu, Q3"),
-                new Customer(IDGenerator.generateCustomerId(), "Lý Thị Lan", "0912345009", "lylan@email.com", "90 Điện Biên Phủ, Q3"),
-                new Customer(IDGenerator.generateCustomerId(), "Mai Văn Khánh", "0912345010", "maikhach@email.com", "111 Lê Văn Sỹ, Q3"),
-                new Customer(IDGenerator.generateCustomerId(), "Trương Minh Lộc", "0912345011", "truongloc@email.com", "222 Nguyễn Thị Minh Khai, Q1"),
-                new Customer(IDGenerator.generateCustomerId(), "Hồ Thị Mai", "0912345012", "homai@email.com", "333 Cách Mạng Tháng 8, Q3"),
-                new Customer(IDGenerator.generateCustomerId(), "Đỗ Thành Nam", "0912345013", "donam@email.com", "444 3 Tháng 2, Q10"),
-                new Customer(IDGenerator.generateCustomerId(), "Lê Thị Oanh", "0912345014", "leoanh@email.com", "555 Lý Thái Tổ, Q10"),
-                new Customer(IDGenerator.generateCustomerId(), "Nguyễn Đức Phát", "0912345015", "nguyenphat@email.com", "666 Sư Vạn Hạnh, Q10"),
-                new Customer(IDGenerator.generateCustomerId(), "Trần Thị Quỳnh", "0912345016", "tranquynh@email.com", "777 Thành Thái, Q10"),
-                new Customer(IDGenerator.generateCustomerId(), "Phạm Văn Rồng", "0912345017", "phamrong@email.com", "888 Tô Hiến Thành, Q10"),
-                new Customer(IDGenerator.generateCustomerId(), "Huỳnh Thị Sen", "0912345018", "huynhsen@email.com", "999 Bà Hạt, Q10"),
-                new Customer(IDGenerator.generateCustomerId(), "Võ Thành Tài", "0912345019", "votai@email.com", "123 Nguyễn Chí Thanh, Q5"),
-                new Customer(IDGenerator.generateCustomerId(), "Đặng Văn Út", "0912345020", "dangut@email.com", "234 An Dương Vương, Q5"),
-                new Customer(IDGenerator.generateCustomerId(), "Bùi Thị Vân", "0912345021", "buivan@email.com", "345 Hậu Giang, Q6"),
-                new Customer(IDGenerator.generateCustomerId(), "Mai Thành Xuân", "0912345022", "maixuan@email.com", "456 Hồng Bàng, Q6"),
-                new Customer(IDGenerator.generateCustomerId(), "Trương Thị Yến", "0912345023", "truongyen@email.com", "567 Minh Phụng, Q6"),
-                new Customer(IDGenerator.generateCustomerId(), "Hoàng Đức Anh", "0912345024", "hoanganh@email.com", "678 Tản Đà, Q5"),
-                new Customer(IDGenerator.generateCustomerId(), "Lý Văn Bảo", "0912345025", "lybao@email.com", "789 Nguyễn Trãi, Q5"),
-                new Customer(IDGenerator.generateCustomerId(), "Đỗ Thị Cúc", "0912345026", "docuc@email.com", "890 Trần Phú, Q5"),
-                new Customer(IDGenerator.generateCustomerId(), "Nguyễn Thành Danh", "0912345027", "nguyendanh@email.com", "901 Lý Thường Kiệt, Q10"),
-                new Customer(IDGenerator.generateCustomerId(), "Trần Văn Phúc", "0912345028", "tranphuc@email.com", "1234 Cao Thắng, Q3"),
-                new Customer(IDGenerator.generateCustomerId(), "Phạm Thị Giang", "0912345029", "phamgiang@email.com", "2345 Nguyễn Thiện Thuật, Q3"),
-                new Customer(IDGenerator.generateCustomerId(), "Huỳnh Văn Hiếu", "0912345030", "huynhhieu@email.com", "3456 Điện Biên Phủ, Q10")
-            };
-
-            for (Customer customer : customers) {
-                store.getCustomers().put(customer.getId(), customer);
-            }
-        }
-
-        System.out.println("Đã khởi tạo: " + store.getProducts().size() + " sản phẩm, " + store.getCustomers().size() + " khách hàng");
-    }
+    
 }
